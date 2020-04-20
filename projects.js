@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const newPost = {...req.body, id: req.params.id}
     try{
         const success = await projectDb.insert(newPost)
