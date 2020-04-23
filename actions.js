@@ -27,22 +27,14 @@ router.post('/', (req, res) => {
 
 // PUT
 router.put('/:id', (req, res) => {
-    if(!req.body || !req.body.notes || !req.body.descripition || !req.body.project_id)
-    {res.status(500).json({message: "Enter the required fields"})
-return;
-}
-actionDb.get(req.params.id)
-.then(result => {
-    if(result) {
-        console.log(result.id);
-        actionDb.update(req.params.id, req.body);
-        res.status(201).json(req.body);
-    } else {
-        res.status(404).json({message: "Cannot find project"})
-    }
+    const changes = req.body;
+    const id = req.params.id;
+actionDb.update(id, changes)
+.then((updated) => {
+        res.status(201).json(updated);
 })
 .catch(error => {
-    res.status(500).json({message: "Cannot update project"})
+    res.status(500).json({message: "Cannot update action"})
 })
 })
 
